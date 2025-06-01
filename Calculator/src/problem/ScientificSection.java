@@ -1,6 +1,48 @@
 import javax.swing.*;
 import java.awt.*;
 
+/*
+ * Smell Code   : Large Class
+ * Reason       : Memiliki terlalu banyak tanggung jawab (UI rendering, event handling, fungsi saintifik).
+ * Solution     : Pisahkan UI setup, event handling, dan pemrosesan logika ke class terpisah seperti `ScientificButtonRenderer`, `ScientificEventHandler`.
+ */
+
+/*
+ * Smell Code   : Duplicate Code
+ * Reason       : Proses pembuatan dan styling tombol dilakukan berulang dalam loop.
+ * Solution     : Ekstrak method `createStyledButton(String label)` untuk modularitas.
+ */
+
+/*
+ * Smell Code   : Primitive Obsession
+ * Reason       : Penggunaan `String` sebagai representasi tipe fungsi (misalnya "mplus", "powerTen").
+ * Solution     : Gunakan `enum` FunctionType untuk meningkatkan type safety dan readability.
+ */
+
+/*
+ * Smell Code   : Long Method
+ * Reason       : Method `applyUnaryFunction()` mengandung banyak logika pemrosesan dalam satu blok switch-case.
+ * Solution     : Refactor menjadi method terpisah per fungsi (misal: `handleSquare()`, `handleCube()`).
+ */
+
+/*
+ * Smell Code   : Feature Envy
+ * Reason       : Banyak logika pengolahan angka dilakukan di class ini, padahal harusnya dilakukan oleh `ScientificFunction`.
+ * Solution     : Serahkan semua kalkulasi ke `ScientificFunction`, `ScientificCalculatorEngine`, atau class domain lainnya.
+ */
+
+/*
+ * Smell Code   : Data Clumps
+ * Reason       : Kombinasi `double num` dan `String functionName` sering digunakan bersamaan.
+ * Solution     : Bungkus dalam class seperti `ScientificCommand` untuk menyederhanakan parameter.
+ */
+
+/*
+ * Smell Code   : Dead Code
+ * Reason       : Beberapa case (seperti "mread") tidak menjalankan logika aktual, hanya print ke console.
+ * Solution     : Implementasikan fungsionalitas sebenarnya atau hapus jika tidak dibutuhkan.
+ */
+
 public class ScientificSection extends JPanel {
     // Font for buttons
     Font myFont = new Font("Arial", Font.PLAIN, 30);
