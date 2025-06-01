@@ -1,5 +1,11 @@
 import java.awt.Color;
 
+/*
+ * Smell Code   : 
+ * Reason       : 
+ * Solution     :
+ */
+
 public class Main {
     static CalculatorFrame frame;
     public static void main(String[] args) {
