@@ -1,3 +1,33 @@
+/*
+ * Smell Code   : Large Class
+ * Reason       : Memiliki terlalu banyak method abstrak (33 total), mencerminkan terlalu banyak tanggung jawab.
+ * Solution     : Bagi menjadi beberapa interface/abstract class sesuai domain (contoh: TrigonometricOps, LogarithmicOps, MemoryOps, dll).
+ */
+
+/*
+ * Smell Code   : Primitive Obsession
+ * Reason       : Menggunakan `double` dan `String` untuk representasi scientific number tanpa class khusus.
+ * Solution     : Buat class `ScientificNumber` untuk membungkus nilai dan tanda, sehingga lebih fleksibel dan mudah diperluas.
+ */
+
+/*
+ * Smell Code   : Long Parameter List
+ * Reason       : Konstruktor menggunakan dua parameter primitif berpasangan yang bisa dikelompokkan.
+ * Solution     : Gunakan object wrapper seperti `ScientificValue` untuk merapikan parameter.
+ */
+
+/*
+ * Smell Code   : Data Clump
+ * Reason       : Kombinasi `double num` dan `String sign` selalu digunakan bersama.
+ * Solution     : Bungkus keduanya dalam satu class seperti `ScientificValue`.
+ */
+
+/*
+ * Smell Code   : Long Parameter List (in constructor)
+ * Reason       : Konstruktor menerima lebih dari satu parameter primitif yang berhubungan.
+ * Solution     : Gunakan object wrapper seperti `ScientificValue` untuk menyederhanakan konstruktor.
+ */
+
 public abstract class ScientificAbstract{
    protected double num;
    protected String sign;

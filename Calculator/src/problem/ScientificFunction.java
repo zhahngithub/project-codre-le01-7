@@ -1,4 +1,38 @@
+/*
+ * Smell Code   : Large Class
+ * Reason       : Mengimplementasi lebih dari 30 method, menunjukkan class terlalu gemuk.
+ * Solution     : Ekstrak class menjadi beberapa turunan berdasarkan domain seperti PowerFunction, TrigonometryFunction, dsb.
+ */
 
+/*
+ * Smell Code   : Duplicate Code
+ * Reason       : Konversi derajat ke radian diulang berkali-kali di sin(), cos(), tan(), dsb.
+ * Solution     : Buat method utilitas internal atau gunakan `degreeToRadian(num)` secara konsisten.
+ */
+
+/*
+ * Smell Code   : Dead Code
+ * Reason       : Method `doubleE()` dan `rand()` hanya return 0 tanpa makna fungsional.
+ * Solution     : Hapus jika tidak diperlukan atau lempar `UnsupportedOperationException`.
+ */
+
+/*
+ * Smell Code   : Primitive Obsession
+ * Reason       : Masih memakai `double` dan `String` untuk data saintifik kompleks.
+ * Solution     : Gunakan class khusus sebagai representasi nilai numerik.
+ */
+
+/*
+ * Smell Code   : Long Method
+ * Reason       : Method `factorial()` memiliki logika dan validasi dalam satu tempat.
+ * Solution     : Ekstrak validasi negatif ke method terpisah untuk readability.
+ */
+
+/*
+ * Smell Code   : Data Clumps
+ * Reason       : Kombinasi `double base` dan `double exponent` sering digunakan bersama.
+ * Solution     : Gunakan class `ExponentOperation` atau sejenisnya.
+ */
 
 public class ScientificFunction extends ScientificAbstract {
     InputSection inputSection;
