@@ -4,7 +4,27 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.regex.*;
 
-
+/*
+ * Smell Code   : The Bloater - Long Method
+ * Reason       : Logika di dalam actionPerformed (bagian button.addActionListener) terlalu panjang dan mencampur banyak hal sekaligus: mulai dari kontrol UI, parsing ekspresi, hingga evaluasi ilmiah dan aritmatika.
+ * Solution     : Extract method seperti: handleClear(), handleDelete(), handleEquals(), handlePercentage(), dan handleSignToggle()
+ * 
+ * Smell Code   : The Bloater - Large Class
+ * Reason       : Kelas DigitsSection bertanggung jawab atas banyak hal: membuat tombol, mengatur tata letak UI, mengelola input, dan bahkan melakukan perhitungan.
+ * Solution     : Pisahkan logika perhitungan ke kelas terpisah, seperti CalculatorLogic, sehingga DigitsSection hanya fokus pada UI dan interaksi pengguna.
+ * 
+ * Smell Code   : Object Oriented Abuser - Switch Statements
+ * Reason       : Dalam method seperti applyScientificFunctions, terdapat rantai if-else panjang untuk memeriksa input (misalnya "sin", "cos", "tan"). Ini mirip dengan switch statement dan sulit dipelihara jika fungsi baru ditambahkan.
+ * Solution     : Definisikan interface ScientificOperation dengan method apply(), lalu buat kelas terpisah untuk setiap operasi (contoh: SinOperation, CosOperation).
+ * 
+ * Smell Code   : The Dispensable - Duplicate Code
+ * Reason       : Logika untuk mengurai input muncul berulang kali, baik di applyScientificFunctions maupun action listener untuk "=". Kedua tempat ini menginterpretasikan string input dengan cara yang mirip.
+ * Solution     : Extract Method, sehingga bisa di reuse di berbagai tempat
+ * 
+ * Smell Code   : The Dispensable - Dead Code
+ * Reason       : Inisialisasi arraylist operands dan operations tidak pernah digunakan
+ * Solution     : Remove Code, hapus bagian inisialisasi kedua arraylist
+ */
 
 
 class DigitsSection extends JPanel {

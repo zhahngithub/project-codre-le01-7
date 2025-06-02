@@ -1,13 +1,16 @@
 import java.util.ArrayList;
 
-/* Smell Code = Long Method (di performOperation())
- * Reason = Methodnya melakukan terlalu banyak hal, switch statementnya bisa diextract ke method terpisah
+/* Smell Code   : The Bloater - Long Method (di performOperation())
+ * Reason       : Methodnya melakukan terlalu banyak hal, switch statementnya bisa diextract ke method terpisah
+ * Solution     : Extract Method ini menjadi bagian-bagian kecil, seperti buildOperationString(), calculateResult(), dan formatResult(). 
  * 
- * Smell Code = Large Class 
- * Reason = Tanggung jawabnya terlalu banyak (nyimpen data, operasi hitungan, error handling, display result)
+ * Smell Code   : The Bloater - Large Class 
+ * Reason       : Tanggung jawabnya terlalu banyak (nyimpen data, operasi hitungan, error handling, display result)
+ * Solution     : Extract Class, misalnya CalculatorEngine untuk perhitungan, dan biarkan ArithmeticFunction hanya mengoordinasikan operasi. Ini mengurangi beban pada kelas.
  * 
- * Smell Code = Primitive Obsession & ??Data Clumps??
- * Reason = operands & operations bisa dibuat menjadi 1 class saja sehingga keseluruhan yang dipanggil dalam class ini berbentuk array of object dibandingkan terpisah secara arraylist 
+ * Smell Code   : The Bloater - Primitive Obsession & ??Data Clumps??
+ * Reason       : Operands & operations bisa dibuat menjadi 1 class saja sehingga keseluruhan yang dipanggil dalam class ini berbentuk array of object dibandingkan terpisah secara arraylist 
+ * Solution     : Buat kelas seperti Operation yang memasangkan operand dengan operasinya, lalu gunakan daftar dari objek Operation.
  * 
  * vvv mungkin tapi ga yakin vvv
  * Divergent Change = kalau ada operasi baru dia harus ngubah method di class ini ataupun nambah method
