@@ -1,9 +1,9 @@
 import java.awt.Color;
 
 /*
- * Smell Code   : 
- * Reason       : 
- * Solution     :
+ * Smell Code   : The Dispensable - Comments
+ * Reason       : Terlalu banyak comments di setiap method pada berbagai class di project ini
+ * Solution     : Remove comment, dan pastikan method / variable diberikan nama yang jelas 
  */
 
 public class Main {
