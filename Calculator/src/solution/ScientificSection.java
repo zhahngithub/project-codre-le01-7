@@ -37,20 +37,12 @@ import java.awt.*;
  * Solution     : Bungkus dalam class seperti `ScientificCommand` untuk menyederhanakan parameter.
  */
 
-/*
- * Smell Code   : Dead Code
- * Reason       : Beberapa case (seperti "mread") tidak menjalankan logika aktual, hanya print ke console.
- * Solution     : Implementasikan fungsionalitas sebenarnya atau hapus jika tidak dibutuhkan.
- */
-
 public class ScientificSection extends JPanel {
-    // Font for buttons
+
     Font myFont = new Font("Arial", Font.PLAIN, 30);
-    // Reference to InputSection
     InputSection inputSection;
     private boolean showInverseFunctions = false;
 
-    // Constructor
     public ScientificSection(InputSection inputSection) {
         this.inputSection = inputSection;
         if (inputSection == null) {
@@ -58,10 +50,8 @@ public class ScientificSection extends JPanel {
         } else {
             System.out.println("InputSection object is not null.");
         }
-        // Setting grid layout
         setLayout(new GridLayout(5, 5, 5, 5));
 
-        // Scientific buttons labels
         String[] scientificButtonLabels = {
                 "(", ")", "mc", "m+", "m-",
                 "mr", "2nd", "x²", "x³", "X^y",
@@ -75,7 +65,6 @@ public class ScientificSection extends JPanel {
             "arcSin","arcCos","arcTan",
             "arcSiH","arcCoH","arcTaH"};
 
-        // Adding buttons
         for (String label : scientificButtonLabels) {
             JButton button = new JButton(label);
 
@@ -85,7 +74,6 @@ public class ScientificSection extends JPanel {
             button.addActionListener(e -> {
                 String buttonText = button.getText();
                 switch (buttonText) {
-                    // Handling button actions
                     case "(":
                         inputSection.updateInputField(buttonText);
                         break;
@@ -192,7 +180,6 @@ public class ScientificSection extends JPanel {
         }
     }
 
-    // Method to apply unary functions
     private void applyUnaryFunction(String functionName) {
         String inputText = inputSection.getInputFieldText();
         if (inputText.isEmpty() || !inputText.matches("[-+]?\\d*(\\.\\d+)?")) {
@@ -243,7 +230,7 @@ public class ScientificSection extends JPanel {
                 result = scientificFunction.exponentialPower();
                 break;
             case "mread":
-                // result = scientificFunction.mread();
+                result = scientificFunction.mread();
                 System.out.print("You clicked the mr button");
                 break;
             default:
