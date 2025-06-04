@@ -37,14 +37,14 @@ public abstract class ScientificAbstract{
    
     abstract double square();
     abstract double cube();
-    abstract double customPower(double num1, double num2);
+    abstract double customPower(PowerComponents powerComponents);
     abstract double tenthPower();
     abstract double fraction();
     abstract double exponential();
     abstract double exponentialPower();
     abstract double sqroot();
     abstract double cubeRoot();
-    abstract double customRoot(double num1, double num2);
+    abstract double customRoot(PowerComponents rootComponents);
     abstract double ln();
     abstract double log();
     abstract double factorial();

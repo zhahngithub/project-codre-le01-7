@@ -29,7 +29,7 @@
  */
 
 /*
- * Smell Code   : Data Clumps
+ * Smell Code   : Data Clumps ✅ (done in solution package)
  * Reason       : Kombinasi `double base` dan `double exponent` sering digunakan bersama.
  * Solution     : Gunakan class `ExponentOperation` atau sejenisnya.
  */
@@ -56,8 +56,8 @@ public class ScientificFunction extends ScientificAbstract {
 
     // Method to calculate custom power of a number
     @Override
-    double customPower(double base, double exponent) {
-        return Math.pow(base, exponent);
+    double customPower(PowerComponents powerComponents) {
+        return Math.pow(powerComponents.getBase(), powerComponents.getExponent());
     }
 
     // Method to calculate tenth power of a number
@@ -98,8 +98,8 @@ public class ScientificFunction extends ScientificAbstract {
 
     // Method to calculate custom root of a number
     @Override
-    double customRoot(double base, double exponent) {
-        return Math.pow(base, 1.0 / exponent);
+    double customRoot(PowerComponents rootComponents) {
+        return Math.pow(rootComponents.getBase(), 1.0 / rootComponents.getExponent());
     }
 
     // Method to calculate natural logarithm of a number
