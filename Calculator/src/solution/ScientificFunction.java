@@ -12,7 +12,6 @@
 
 /*
  * Smell Code   : Dead Code ✅
- * Smell Code   : Dead Code ✅
  * Reason       : Method `doubleE()` dan `rand()` hanya return 0 tanpa makna fungsional.
  * Solution     : Hapus jika tidak diperlukan atau lempar `UnsupportedOperationException`.
  */
@@ -151,9 +150,9 @@ public class ScientificFunction extends ScientificAbstract {
 
     @Override
     double factorial() {
-        validateNonNegative(num);
+        validateNonNegativeInteger(scientificNumber.getNum());
         double result = 1;
-        for (int i = 2; i <= num; i++) {
+        for (int i = 2; i <= scientificNumber.getNum(); i++) {
         result *= i;
     }
         return result;
@@ -236,7 +235,7 @@ public class ScientificFunction extends ScientificAbstract {
     }
     @Override
     double arcCosH() {
-        double resultInRadians=degreeToRadian(num);
+        double resultInRadians=degreeToRadian(scientificNumber.getNum());
         return inverse(resultInRadians, "acosh");
     }
 
@@ -244,12 +243,6 @@ public class ScientificFunction extends ScientificAbstract {
     @Override
     double singleE() {
         return 2.718281828459045;
-    }
-
-    // Method to return double of Euler's number (e)
-    @Override
-    double doubleE() {
-        return 2 * Math.E;
     }
 
     // Method to convert degrees to radians
@@ -275,13 +268,7 @@ public class ScientificFunction extends ScientificAbstract {
 
     @Override
     double mminus(){ 
-        return inputSection.subtractFromMemory(num);
-    }
-
-    // Method to generate a random number
-    @Override
-    double rand() {
-        return Math.random();
+        return inputSection.subtractFromMemory(scientificNumber.getNum());
     }
 
     // Method to convert degrees to radians
@@ -301,12 +288,5 @@ public class ScientificFunction extends ScientificAbstract {
         }
         return result;
     }
-
-    private void validateNonNegative(double num) {
-    if (num < 0) {
-        inputSection.setInputField("NaN");
-        throw new IllegalArgumentException("Factorial is not defined for negative numbers");
-    }
-}
       
 }
