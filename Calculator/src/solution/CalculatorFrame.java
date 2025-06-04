@@ -28,5 +28,4 @@ public class CalculatorFrame extends JFrame {
         setContentPane(mainPanel);
     }
 
-
 }
