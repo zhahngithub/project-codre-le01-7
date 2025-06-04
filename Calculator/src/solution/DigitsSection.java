@@ -43,13 +43,13 @@ class DigitsSection {
             if (sign == '√') {
                 double num1 = Double.parseDouble(operands[0]);
                 double num2 = Double.parseDouble(operands[1]);
-                ScientificFunction scientificFunction=new ScientificFunction(num1, "√",inputSection);
+                ScientificFunction scientificFunction=new ScientificFunction(new ScientificNumber(num1, "√"),inputSection);
                 double result = scientificFunction.customRoot(new PowerComponents(num2, num1));
                 inputSection.setInputField(String.valueOf(result));
             } else if (sign == '^') { 
                 double num1 = Double.parseDouble(operands[0]);
                 double num2 = Double.parseDouble(operands[1]);
-                ScientificFunction scientificFunction=new ScientificFunction(num1, "^",inputSection);
+                ScientificFunction scientificFunction=new ScientificFunction(new ScientificNumber(num1, "^"),inputSection);
                 double result=scientificFunction.customPower(new PowerComponents(num1, num2));
                 inputSection.setInputField(String.valueOf(result));
             } else if (sign == 'E') {
@@ -212,23 +212,23 @@ class DigitsSection {
         double result = 0;
         switch (functionName) {
             case "sin":
-                ScientificFunction sinFunction = new ScientificFunction(numericValue, "sin", inputSection);
+                ScientificFunction sinFunction = new ScientificFunction(new ScientificNumber(numericValue, "sin"), inputSection);
                 result = sinFunction.sin();
                 break;
             case "cos":
-                ScientificFunction cosFunction = new ScientificFunction(numericValue, "cos", inputSection);
+                ScientificFunction cosFunction = new ScientificFunction(new ScientificNumber(numericValue, "cos"), inputSection);
                 result = cosFunction.cos();
                 break;
             case "tan":
-                ScientificFunction tanFunction = new ScientificFunction(numericValue, "tan", inputSection);
+                ScientificFunction tanFunction = new ScientificFunction(new ScientificNumber(numericValue, "tan"), inputSection);
                 result = tanFunction.tan();
                 break;
             case "log":
-                ScientificFunction logFunction = new ScientificFunction(numericValue, "log", inputSection);
+                ScientificFunction logFunction = new ScientificFunction(new ScientificNumber(numericValue, "log"), inputSection);
                 result = logFunction.log();
                 break;
             case "ln":
-                ScientificFunction lnFunction = new ScientificFunction(numericValue, "ln", inputSection);
+                ScientificFunction lnFunction = new ScientificFunction(new ScientificNumber(numericValue, "ln"), inputSection);
                 result = lnFunction.ln();
                 break;
             default:
@@ -241,6 +241,6 @@ class DigitsSection {
         Integer strLen = functionName.length();
         String numericPart = inputText.substring(strLen);
         double num = Double.parseDouble(numericPart);
-        return new ScientificFunction(num, functionName, inputSection);
+        return new ScientificFunction(new ScientificNumber(num, functionName), inputSection);
     }
 }

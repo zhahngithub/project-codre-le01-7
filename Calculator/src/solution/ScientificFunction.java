@@ -37,8 +37,8 @@
 public class ScientificFunction extends ScientificAbstract {
     InputSection inputSection;
 
-    public ScientificFunction(double num, String sign, InputSection inputSection) {
-        super(new ScientificNumber(num, sign));
+    public ScientificFunction(ScientificNumber scientificNumber, InputSection inputSection) {
+        super(scientificNumber);
         this.inputSection=inputSection;
     }
 

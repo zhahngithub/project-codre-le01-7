@@ -20,19 +20,19 @@ import java.awt.*;
  */
 
 /*
- * Smell Code   : Long Method
+ * Smell Code   : Long Method ✅
  * Reason       : Method `applyUnaryFunction()` mengandung banyak logika pemrosesan dalam satu blok switch-case.
  * Solution     : Refactor menjadi method terpisah per fungsi (misal: `handleSquare()`, `handleCube()`).
  */
 
 /*
- * Smell Code   : Feature Envy
+ * Smell Code   : Feature Envy ✅
  * Reason       : Banyak logika pengolahan angka dilakukan di class ini, padahal harusnya dilakukan oleh `ScientificFunction`.
  * Solution     : Serahkan semua kalkulasi ke `ScientificFunction`, `ScientificCalculatorEngine`, atau class domain lainnya.
  */
 
 /*
- * Smell Code   : Data Clumps
+ * Smell Code   : Data Clumps  ✅
  * Reason       : Kombinasi `double num` dan `String functionName` sering digunakan bersamaan.
  * Solution     : Bungkus dalam class seperti `ScientificCommand` untuk menyederhanakan parameter.
  */
@@ -189,7 +189,7 @@ public class ScientificSection extends JPanel {
             return;
         }
         double num = Double.parseDouble(inputSection.getInputFieldText());
-        ScientificFunction scientificFunction = new ScientificFunction(num, type.name(), inputSection);
+        ScientificFunction scientificFunction = new ScientificFunction(new ScientificNumber(num, type.name()), inputSection);
         double result = scientificFunction.execute(type);
         inputSection.setInputField(String.valueOf(result));
     }
