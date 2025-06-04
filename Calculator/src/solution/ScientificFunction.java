@@ -23,7 +23,7 @@
  */
 
 /*
- * Smell Code   : Long Method
+ * Smell Code   : Long Method ✅
  * Reason       : Method `factorial()` memiliki logika dan validasi dalam satu tempat.
  * Solution     : Ekstrak validasi negatif ke method terpisah untuk readability.
  */
@@ -115,12 +115,22 @@ public class ScientificFunction extends ScientificAbstract {
     }
 
     // Method to calculate factorial of a number
+    private void validateNonNegativeInteger(double number) {
+        if (number < 0) {
+            inputSection.setInputField("NaN");
+            throw new IllegalArgumentException("Factorial is not defined for negative numbers.");
+        }
+        if (number != Math.floor(number)) {
+             if (inputSection != null) {
+                inputSection.setInputField("NaN");
+            }
+            throw new IllegalArgumentException("Factorial is only defined for non-negative integers.");
+        }
+    }
+
     @Override
     double factorial() {
-        if (scientificNumber.getNum() < 0) {
-            inputSection.setInputField("NaN");
-            throw new IllegalArgumentException("Factorial is not defined for negative numbers");
-        }
+        validateNonNegativeInteger(scientificNumber.getNum());
         double result = 1;
         for (int i = 2; i <= scientificNumber.getNum(); i++) {
             result *= i;
