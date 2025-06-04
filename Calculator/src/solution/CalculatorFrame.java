@@ -21,7 +21,8 @@ public class CalculatorFrame extends JFrame {
         ScientificSection scientificSection = new ScientificSection(inputSection);
         sectionsPanel.add(scientificSection);
         DigitsSection digitsSection = new DigitsSection(inputSection);
-        sectionsPanel.add(digitsSection);
+        DigitsSectionUI digitsSectionUI = new DigitsSectionUI(digitsSection);
+        sectionsPanel.add(digitsSectionUI);
         mainPanel.add(sectionsPanel, BorderLayout.CENTER);
 
         setContentPane(mainPanel);

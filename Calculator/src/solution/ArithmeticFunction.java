@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+// JANGAN DIEDIT
+
 /* Smell Code   : The Bloater - Long Method (di performOperation()) ✅
  * Reason       : Methodnya melakukan terlalu banyak hal, switch statementnya bisa diextract ke method terpisah
  * Solution     : Extract Method ini menjadi bagian-bagian kecil, seperti buildOperationString(), calculateResult(), dan formatResult(). 
