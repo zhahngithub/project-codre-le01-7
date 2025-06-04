@@ -17,11 +17,11 @@ import java.util.regex.*;
  * Reason       : Dalam method seperti applyScientificFunctions, terdapat rantai if-else panjang untuk memeriksa input (misalnya "sin", "cos", "tan"). Ini mirip dengan switch statement dan sulit dipelihara jika fungsi baru ditambahkan.
  * Solution     : Definisikan interface ScientificOperation dengan method apply(), lalu buat kelas terpisah untuk setiap operasi (contoh: SinOperation, CosOperation).
  * 
- * Smell Code   : The Dispensable - Duplicate Code
- * Reason       : Logika untuk mengurai input muncul berulang kali, baik di applyScientificFunctions maupun action listener untuk "=". Kedua tempat ini menginterpretasikan string input dengan cara yang mirip.
+ * Smell Code   : The Dispensable - Duplicate Code ✅ (done in solution package)
+ * Reason       : Logika untuk mengurai input muncul berulang kali di applyScientificFunctions.
  * Solution     : Extract Method, sehingga bisa di reuse di berbagai tempat
  * 
- * Smell Code   : The Dispensable - Dead Code
+ * Smell Code   : The Dispensable - Dead Code ✅ (done in solution package)
  * Reason       : Inisialisasi arraylist operands dan operations tidak pernah digunakan
  * Solution     : Remove Code, hapus bagian inisialisasi kedua arraylist
  */
