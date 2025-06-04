@@ -44,13 +44,13 @@ class DigitsSection extends JPanel {
                 double num1 = Double.parseDouble(operands[0]);
                 double num2 = Double.parseDouble(operands[1]);
                 ScientificFunction scientificFunction=new ScientificFunction(num1, "√",inputSection);
-                double result = scientificFunction.customRoot(num2, num1);
+                double result = scientificFunction.customRoot(new PowerComponents(num2, num1));
                 inputSection.setInputField(String.valueOf(result));
             } else if (sign == '^') { 
                 double num1 = Double.parseDouble(operands[0]);
                 double num2 = Double.parseDouble(operands[1]);
                 ScientificFunction scientificFunction=new ScientificFunction(num1, "^",inputSection);
-                double result=scientificFunction.customPower(num1, num2);
+                double result=scientificFunction.customPower(new PowerComponents(num1, num2));
                 inputSection.setInputField(String.valueOf(result));
             } else if (sign == 'E') {
                 double num1 = Double.parseDouble(operands[0]);
