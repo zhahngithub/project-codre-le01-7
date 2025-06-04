@@ -73,6 +73,7 @@ public class ScientificSection extends JPanel {
 
         for (String label : scientificButtonLabels) {
             JButton button = createStyledButton(label);
+            button.addActionListener(e -> {
                 String buttonText = button.getText();
                 switch (buttonText) {
                     case "(":
