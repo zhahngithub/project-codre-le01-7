@@ -5,7 +5,7 @@
  */
 
 /*
- * Smell Code   : Duplicate Code
+ * Smell Code   : Duplicate Code ✅
  * Reason       : Konversi derajat ke radian diulang berkali-kali di sin(), cos(), tan(), dsb.
  * Solution     : Buat method utilitas internal atau gunakan `degreeToRadian(num)` secara konsisten.
  */
@@ -161,15 +161,13 @@ public class ScientificFunction extends ScientificAbstract {
     // Method to calculate sine of an angle in degrees
     @Override
     double sin() {
-        double resultInRadians = degreeToRadian(scientificNumber.getNum());
-        return Math.sin(resultInRadians);
+        return Math.sin(degreeToRadian(scientificNumber.getNum()));
     }
 
     // Method to calculate cosine of an angle in degrees
     @Override
     double cos() {
-        double resultInRadians = degreeToRadian(scientificNumber.getNum());
-        return Math.cos(resultInRadians);
+        return Math.cos(degreeToRadian(scientificNumber.getNum()));
     }
 
     // Method to calculate tangent of an angle in degrees
@@ -178,25 +176,20 @@ public class ScientificFunction extends ScientificAbstract {
         if(scientificNumber.getNum()==90){
             return Double.NaN;
         }
-        double resultInRadians = degreeToRadian(scientificNumber.getNum());
-        return Math.tan(resultInRadians);
+        return Math.tan(degreeToRadian(scientificNumber.getNum()));
     }
 
     @Override
     double arcSin(){
-        double resultInRadians = degreeToRadian(scientificNumber.getNum());
-        return Math.asin(resultInRadians);
+        return Math.asin(degreeToRadian(scientificNumber.getNum()));
     }
     @Override
     double arcCos() {
-        
-        double resultInRadians=degreeToRadian(scientificNumber.getNum());
-        return Math.acos(resultInRadians);
+        return Math.acos(degreeToRadian(scientificNumber.getNum()));
     }
     @Override
     double arcTan() {
-        double resultInRadians=degreeToRadian(scientificNumber.getNum());
-        return Math.atan(resultInRadians);
+        return Math.atan(degreeToRadian(scientificNumber.getNum()));
     }
 
 
