@@ -4,7 +4,7 @@ import javax.swing.*;
 public class CalculatorFrame extends JFrame {
 
     public CalculatorFrame(String name, int width, int height) {
-        super(name);
+        super(new String("Biji"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(width, height);
         setLocationRelativeTo(null);
