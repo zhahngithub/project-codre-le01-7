@@ -34,33 +34,57 @@
  * Solution     : Gunakan class `ExponentOperation` atau sejenisnya.
  */
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
 public class ScientificFunction extends ScientificAbstract {
     InputSection inputSection;
-
+    public final static Map<String, Function<ScientificFunction, Double>> functionMap = new HashMap<>(); 
+    static{
+        // Initialize function map
+        functionMap.put("sin", ScientificFunction::sin);
+        functionMap.put("arcSin", ScientificFunction::arcSin);
+        functionMap.put("cos", ScientificFunction::cos);
+        functionMap.put("arcCos", ScientificFunction::arcCos);
+        functionMap.put("tan", ScientificFunction::tan);
+        functionMap.put("arcTan", ScientificFunction::arcTan);
+        functionMap.put("log", ScientificFunction::log);
+        functionMap.put("ln", ScientificFunction::ln);
+        functionMap.put("sinh", ScientificFunction::sinH);
+        functionMap.put("arcSinh", ScientificFunction::arcSinH);
+        functionMap.put("cosh", ScientificFunction::cosH);
+        functionMap.put("arcCosh", ScientificFunction::arcCosH);
+        functionMap.put("tanh", ScientificFunction::tanH);
+        functionMap.put("arcTanh", ScientificFunction::arcTanH);     
+    }
+  
     public ScientificFunction(ScientificNumber scientificNumber, InputSection inputSection) {
         super(scientificNumber);
-        this.inputSection=inputSection;
+        this.inputSection=inputSection;    
     }
 
     public double execute(FunctionType type) {
-    switch (type) {
-        case M_PLUS: return mplus();
-        case M_MINUS: return mminus();
-        case SQUARE: return square();
-        case CUBE: return cube();
-        case SQROOT: return sqroot();
-        case CUBEROOT: return cubeRoot();
-        case FRACTION: return fraction();
-        case FACTORIAL: return factorial();
-        case PI: return Math.PI;
-        case POWER_TEN: return tenthPower();
-        case EXPONENTIAL_POWER: return exponentialPower();
-        case M_CLEAR: return mc();
-        case M_READ: return mread();
-        default:
-            throw new UnsupportedOperationException("Unknown function type: " + type);
+        switch (type) {
+            case M_PLUS: return mplus();
+            case M_MINUS: return mminus();
+            case SQUARE: return square();
+            case CUBE: return cube();
+            case SQROOT: return sqroot();
+            case CUBEROOT: return cubeRoot();
+            case FRACTION: return fraction();
+            case FACTORIAL: return factorial();
+            case PI: return Math.PI;
+            case POWER_TEN: return tenthPower();
+            case EXPONENTIAL_POWER: return exponentialPower();
+            case M_CLEAR: return mc();
+            case M_READ: return mread();
+            default:
+                throw new UnsupportedOperationException("Unknown function type: " + type);
+        }
     }
-}
+
+    
 
     // Method to calculate square of a number
     @Override

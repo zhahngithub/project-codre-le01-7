@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.regex.*;
 
 /*
@@ -12,7 +14,7 @@ import java.util.regex.*;
  * 
  * Smell Code   : Object Oriented Abuser - Switch Statements
  * Reason       : Dalam method seperti applyScientificFunctions, terdapat rantai if-else panjang untuk memeriksa input (misalnya "sin", "cos", "tan"). Ini mirip dengan switch statement dan sulit dipelihara jika fungsi baru ditambahkan.
- * Solution     : Definisikan interface ScientificOperation dengan method apply(), lalu buat kelas terpisah untuk setiap operasi (contoh: SinOperation, CosOperation).
+ * Solution     : Map<String, Function<ScientificFunction, Double>> untuk menyimpan fungsi secara dynamic
  * 
  * Smell Code   : The Dispensable - Duplicate Code ✅
  * Reason       : Logika untuk mengurai input muncul berulang kali di applyScientificFunctions.
@@ -155,55 +157,14 @@ class DigitsSection {
     private void applyScientificFunctions() {
         String inputText = inputSection.getInputFieldText();
         double result = 0;
-
-        if (inputText.startsWith("sin")) {
-            scientificFunction = getScientificFunctionFromInput(inputText, "sin");
-            result = scientificFunction.sin();
-        }else if(inputText.startsWith("arcSin")){
-            scientificFunction = getScientificFunctionFromInput(inputText, "arcSin");
-            result = scientificFunction.arcSin();
-        }   else if (inputText.startsWith("cos")) {
-            scientificFunction = getScientificFunctionFromInput(inputText, "cos");
-            result = scientificFunction.cos();
-        } else if(inputText.startsWith("arcCos")){
-            scientificFunction = getScientificFunctionFromInput(inputText, "arcCos");
-            result = scientificFunction.arcCos();
-        } else if (inputText.startsWith("tan")) {
-            scientificFunction = getScientificFunctionFromInput(inputText, "tan");
-            result = scientificFunction.tan();
-        } else if(inputText.startsWith("arcTan")){
-            scientificFunction = getScientificFunctionFromInput(inputText, "arcTan");
-            result = scientificFunction.arcTan();
-        } else if (inputText.startsWith("log")) {
-            scientificFunction = getScientificFunctionFromInput(inputText, "log");
-            result = scientificFunction.log();
-        } else if (inputText.startsWith("ln")) {
-            scientificFunction = getScientificFunctionFromInput(inputText, "ln");
-            result = scientificFunction.ln();
-        } else if (inputText.startsWith("sih")) {
-            scientificFunction = getScientificFunctionFromInput(inputText, "sinh");
-            result = scientificFunction.sinH();
-        } else if (inputText.startsWith("arcSiH")) {
-            scientificFunction = getScientificFunctionFromInput(inputText, "arcSinh");
-            result = scientificFunction.arcSinH();
-        }  else if (inputText.startsWith("coh")) {
-            scientificFunction = getScientificFunctionFromInput(inputText, "cosh");
-            result = scientificFunction.cosH();
-        } else if (inputText.startsWith("arcCoH")) {
-            scientificFunction = getScientificFunctionFromInput(inputText, "arcCosh");
-            result = scientificFunction.arcCosH();
-        } 
-           else if (inputText.startsWith("tah")) {
-            scientificFunction = getScientificFunctionFromInput(inputText, "tanh");
-            result = scientificFunction.tanH();
-        } else if (inputText.startsWith("arcTaH")) {
-            scientificFunction = getScientificFunctionFromInput(inputText, "arcTanH");
-            result = scientificFunction.arcTanH();
-        } 
-         else if (inputText.startsWith("√")) {
+        
+        if (inputText.startsWith("√")) {
             String numericPart = inputText.substring(1); 
             double num = Double.parseDouble(numericPart);
             result = Math.sqrt(num);
+        }
+        else{
+            result = handleScientificFunction(inputText);
         }
 
         inputSection.setInputField(String.valueOf(result));
@@ -242,5 +203,16 @@ class DigitsSection {
         String numericPart = inputText.substring(strLen);
         double num = Double.parseDouble(numericPart);
         return new ScientificFunction(new ScientificNumber(num, functionName), inputSection);
+    }
+
+    private double handleScientificFunction(String inputText) {
+        for (Map.Entry<String, Function<ScientificFunction, Double>> entry : ScientificFunction.functionMap.entrySet()) {
+            String key = entry.getKey();
+            if (inputText.startsWith(key)) {
+                ScientificFunction scientificFunction = getScientificFunctionFromInput(inputText, key);
+                return entry.getValue().apply(scientificFunction);
+            }
+        }
+        throw new IllegalArgumentException("Unsupported function: " + inputText);
     }
 }

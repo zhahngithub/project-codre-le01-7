@@ -1,5 +1,5 @@
 /*
- * Smell Code   : Abstraction Smell - Unnecessary Abstraction ✅ (done in solution package)
+ * Smell Code   : Abstraction Smell - Unnecessary Abstraction ✅ (done deleted in solution package)
  * Reason       : Interface ini mendefinisikan operasi aritmatika dasar (add, subtract, multiply, divide), tetapi dalam konteks kalkulator, operasi ini sudah jelas dan tidak memerlukan abstraksi.
  * Solution     : Hapus interface ini dan langsung implementasikan method-nya di kelas
 */
