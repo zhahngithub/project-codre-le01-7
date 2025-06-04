@@ -12,7 +12,7 @@ import java.util.regex.*;
  * Reason       : Kelas DigitsSection bertanggung jawab atas banyak hal: membuat tombol, mengatur tata letak UI, mengelola input, dan bahkan melakukan perhitungan.
  * Solution     : Pisahkan logika perhitungan ke kelas terpisah, seperti CalculatorLogic, sehingga DigitsSection hanya fokus pada UI dan interaksi pengguna.
  * 
- * Smell Code   : Object Oriented Abuser - Switch Statements
+ * Smell Code   : Object Oriented Abuser - Switch Statements ✅
  * Reason       : Dalam method seperti applyScientificFunctions, terdapat rantai if-else panjang untuk memeriksa input (misalnya "sin", "cos", "tan"). Ini mirip dengan switch statement dan sulit dipelihara jika fungsi baru ditambahkan.
  * Solution     : Map<String, Function<ScientificFunction, Double>> untuk menyimpan fungsi secara dynamic
  * 
