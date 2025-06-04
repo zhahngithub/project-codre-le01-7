@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.regex.*;
 
 /*
- * Smell Code   : The Bloater - Long Method
+ * Smell Code   : The Bloater - Long Method ✅
  * Reason       : Logika di dalam actionPerformed (bagian button.addActionListener) terlalu panjang dan mencampur banyak hal sekaligus: mulai dari kontrol UI, parsing ekspresi, hingga evaluasi ilmiah dan aritmatika.
  * Solution     : Extract method seperti: handleClear(), handleDelete(), handleEquals(), handlePercentage(), dan handleSignToggle()
  * 
@@ -17,8 +17,8 @@ import java.util.regex.*;
  * Reason       : Dalam method seperti applyScientificFunctions, terdapat rantai if-else panjang untuk memeriksa input (misalnya "sin", "cos", "tan"). Ini mirip dengan switch statement dan sulit dipelihara jika fungsi baru ditambahkan.
  * Solution     : Definisikan interface ScientificOperation dengan method apply(), lalu buat kelas terpisah untuk setiap operasi (contoh: SinOperation, CosOperation).
  * 
- * Smell Code   : The Dispensable - Duplicate Code
- * Reason       : Logika untuk mengurai input muncul berulang kali, baik di applyScientificFunctions maupun action listener untuk "=". Kedua tempat ini menginterpretasikan string input dengan cara yang mirip.
+ * Smell Code   : The Dispensable - Duplicate Code ✅
+ * Reason       : Logika untuk mengurai input muncul berulang kali di applyScientificFunctions.
  * Solution     : Extract Method, sehingga bisa di reuse di berbagai tempat
  * 
  * Smell Code   : The Dispensable - Dead Code ✅
@@ -32,6 +32,86 @@ class DigitsSection extends JPanel {
     ArithmeticFunction arithmeticFunction;
     ScientificFunction scientificFunction;
     InputSection inputSection;
+
+    private void handleEquals(){
+        String input = inputSection.getInputFieldText();
+        char sign = extractSign(input);
+        if (sign == ' ') {
+            applyScientificFunctions();
+        } else {
+            String[] operands = input.split(Pattern.quote(String.valueOf(sign)));
+            if (sign == '√') {
+                double num1 = Double.parseDouble(operands[0]);
+                double num2 = Double.parseDouble(operands[1]);
+                ScientificFunction scientificFunction=new ScientificFunction(num1, "√",inputSection);
+                double result = scientificFunction.customRoot(new PowerComponents(num2, num1));
+                inputSection.setInputField(String.valueOf(result));
+            } else if (sign == '^') { 
+                double num1 = Double.parseDouble(operands[0]);
+                double num2 = Double.parseDouble(operands[1]);
+                ScientificFunction scientificFunction=new ScientificFunction(num1, "^",inputSection);
+                double result=scientificFunction.customPower(new PowerComponents(num1, num2));
+                inputSection.setInputField(String.valueOf(result));
+            } else if (sign == 'E') {
+                double num1 = Double.parseDouble(operands[0]);
+                double num2 = Double.parseDouble(operands[1]);
+                double result = num1 * (Math.pow(10, num2));
+                inputSection.setInputField(String.valueOf(result));
+            } else {
+                String[] split = input.split("(?=[-+*/()])|(?<=[-+*/()])");
+                ArrayList<Double> operandsList = new ArrayList<>();
+                ArrayList<String> operationsList = new ArrayList<>();
+
+                for (String token : split) {                 
+                    try {
+                        if (token.matches("sin\\d*|cos\\d*|tan\\d*|log\\d*|ln\\d*")) {
+                        String functionName=token.substring(0,3).trim();
+                        String numericPart = token.substring(3).trim(); 
+                        double numericValue =Double.parseDouble(numericPart);
+                        double number=performScientificAction(functionName,numericValue,inputSection);
+                        operandsList.add(number);
+                    }
+                
+                    double number = Double.parseDouble(token);
+                    operandsList.add(number);
+                        
+                    } catch (NumberFormatException error) {
+                        if (token.equals("+")) {
+                            operationsList.add(token);
+                        }
+                        else if (token.equals("-")) {
+                            operationsList.add(token);
+                        }
+                        else if (token.equals("/")) {
+                            operationsList.add(token);
+                        }
+                        else if (token.equals("*")) {
+                            operationsList.add(token);
+                        }
+                    }
+                }
+                ArithmeticFunction arithmeticFunction = new ArithmeticFunction(operandsList, operationsList, inputSection);
+                String result = arithmeticFunction.performOperation();
+                inputSection.setInputField(result);
+            }
+        }
+    }
+
+    private void handlePercentage(){
+        String input = inputSection.getInputFieldText();
+        char sign = extractSign(input);
+        String[] operands = input.split("[" + sign + "]");
+        double num = Double.parseDouble(operands[0]);
+        double result = num / 100.0;
+        inputSection.setInputField(String.valueOf(result));
+    }
+
+    private void handleSignToggle(){
+         String input = inputSection.getInputFieldText();
+        double number = Double.parseDouble(input);
+        double result = number * -1;
+        inputSection.setInputField(String.valueOf(result));
+    }
 
     public DigitsSection(InputSection inputSection) {
         this.inputSection = inputSection;
@@ -62,82 +142,11 @@ class DigitsSection extends JPanel {
                 } else if (buttonText.equals("del")) {
                     inputSection.removeCurrentText();
                 } else if (buttonText.equals("=")) {
-                    String input = inputSection.getInputFieldText();
-                    char sign = extractSign(input);
-                    if (sign == ' ') {
-                        applyScientificFunctions();
-                    } else {
-                        String[] operands = input.split(Pattern.quote(String.valueOf(sign)));
-                        if (sign == '√') {
-                            double num1 = Double.parseDouble(operands[0]);
-                            double num2 = Double.parseDouble(operands[1]);
-                            ScientificFunction scientificFunction=new ScientificFunction(num1, "^",inputSection);
-                            double result = scientificFunction.customRoot(num2, num1);
-                            inputSection.setInputField(String.valueOf(result));
-                        } else if (sign == '^') { 
-                            double num1 = Double.parseDouble(operands[0]);
-                            double num2 = Double.parseDouble(operands[1]);
-                            ScientificFunction scientificFunction=new ScientificFunction(num1, "^",inputSection);
-                            double result=scientificFunction.customPower(num1, num2);
-                            inputSection.setInputField(String.valueOf(result));
-                        } else if (sign == 'E') {
-                            double num1 = Double.parseDouble(operands[0]);
-                            double num2 = Double.parseDouble(operands[1]);
-                            double result = num1 * (Math.pow(10, num2));
-                            inputSection.setInputField(String.valueOf(result));
-                        } else {
-                            String[] split = input.split("(?=[-+*/()])|(?<=[-+*/()])");
-                            ArrayList<Double> operandsList = new ArrayList<>();
-                            ArrayList<String> operationsList = new ArrayList<>();
-
-                            for (String token : split) {                 
-                                try {
-                                    if (token.matches("sin\\d*|cos\\d*|tan\\d*|log\\d*|ln\\d*")) {
-                                    String functionName=token.substring(0,3).trim();
-                                    String numericPart = token.substring(3).trim(); 
-                                    double numericValue =Double.parseDouble(numericPart);
-                                    double number=performScientificAction(functionName,numericValue,inputSection);
-                                    operandsList.add(number);
-                                }
-                            
-                                double number = Double.parseDouble(token);
-                                operandsList.add(number);
-                                    
-                                } catch (NumberFormatException error) {
-                                    if (token.equals("+")) {
-                                        operationsList.add(token);
-                                    }
-                                    else if (token.equals("-")) {
-                                        operationsList.add(token);
-                                    }
-                                    else if (token.equals("/")) {
-                                        operationsList.add(token);
-                                    }
-                                    else if (token.equals("*")) {
-                                        operationsList.add(token);
-                                    }
-                                 
-                                    
-                                }
-                            }
-                            ArithmeticFunction arithmeticFunction = new ArithmeticFunction(operandsList, operationsList, inputSection);
-                            String result = arithmeticFunction.performOperation();
-                            inputSection.setInputField(result);
-                            
-                        }
-                    }
+                    handleEquals();
                 } else if (buttonText.equals("%")) {
-                    String input = inputSection.getInputFieldText();
-                    char sign = extractSign(input);
-                    String[] operands = input.split("[" + sign + "]");
-                    double num = Double.parseDouble(operands[0]);
-                    double result = num / 100.0;
-                    inputSection.setInputField(String.valueOf(result));
+                    handlePercentage();
                 } else if (buttonText.equals("+/-")) {
-                    String input = inputSection.getInputFieldText();
-                    double number = Double.parseDouble(input);
-                    double result = number * -1;
-                    inputSection.setInputField(String.valueOf(result));
+                   handleSignToggle();
                 } else {
                     inputSection.updateInputField(buttonText);
                 }
@@ -174,75 +183,47 @@ class DigitsSection extends JPanel {
         double result = 0;
 
         if (inputText.startsWith("sin")) {
-            String numericPart = inputText.substring(3);
-            double num = Double.parseDouble(numericPart);
-            scientificFunction = new ScientificFunction(num, "sin",inputSection);
+            scientificFunction = getScientificFunctionFromInput(inputText, "sin");
             result = scientificFunction.sin();
         }else if(inputText.startsWith("arcSin")){
-            String numericPart = inputText.substring(6);
-            double num = Double.parseDouble(numericPart);
-            scientificFunction = new ScientificFunction(num, "arcSin",inputSection);
+            scientificFunction = getScientificFunctionFromInput(inputText, "arcSin");
             result = scientificFunction.arcSin();
         }   else if (inputText.startsWith("cos")) {
-            String numericPart = inputText.substring(3);
-            double num = Double.parseDouble(numericPart);
-            scientificFunction = new ScientificFunction(num, "cos",inputSection);
+            scientificFunction = getScientificFunctionFromInput(inputText, "cos");
             result = scientificFunction.cos();
         } else if(inputText.startsWith("arcCos")){
-            String numericPart = inputText.substring(6);
-            double num = Double.parseDouble(numericPart);
-            scientificFunction = new ScientificFunction(num, "sinh",inputSection);
+            scientificFunction = getScientificFunctionFromInput(inputText, "arcCos");
             result = scientificFunction.arcCos();
         } else if (inputText.startsWith("tan")) {
-            String numericPart = inputText.substring(3);
-            double num = Double.parseDouble(numericPart);
-            scientificFunction = new ScientificFunction(num, "tan",inputSection);
+            scientificFunction = getScientificFunctionFromInput(inputText, "tan");
             result = scientificFunction.tan();
         } else if(inputText.startsWith("arcTan")){
-            String numericPart = inputText.substring(6);
-            double num = Double.parseDouble(numericPart);
-            scientificFunction = new ScientificFunction(num, "arcTan",inputSection);
+            scientificFunction = getScientificFunctionFromInput(inputText, "arcTan");
             result = scientificFunction.arcTan();
         } else if (inputText.startsWith("log")) {
-            String numericPart = inputText.substring(3);
-            double num = Double.parseDouble(numericPart);
-            scientificFunction = new ScientificFunction(num, "log",inputSection);
+            scientificFunction = getScientificFunctionFromInput(inputText, "log");
             result = scientificFunction.log();
         } else if (inputText.startsWith("ln")) {
-            String numericPart = inputText.substring(3);
-            double num = Double.parseDouble(numericPart);
-            scientificFunction = new ScientificFunction(num, "ln",inputSection);
+            scientificFunction = getScientificFunctionFromInput(inputText, "ln");
             result = scientificFunction.ln();
         } else if (inputText.startsWith("sih")) {
-            String numericPart = inputText.substring(3);
-            double num = Double.parseDouble(numericPart);
-            scientificFunction = new ScientificFunction(num, "sinh",inputSection);
+            scientificFunction = getScientificFunctionFromInput(inputText, "sinh");
             result = scientificFunction.sinH();
         } else if (inputText.startsWith("arcSiH")) {
-            String numericPart = inputText.substring(6);
-            double num = Double.parseDouble(numericPart);
-            scientificFunction = new ScientificFunction(num, "arcSinh",inputSection);
+            scientificFunction = getScientificFunctionFromInput(inputText, "arcSinh");
             result = scientificFunction.arcSinH();
         }  else if (inputText.startsWith("coh")) {
-            String numericPart = inputText.substring(3);
-            double num = Double.parseDouble(numericPart);
-            scientificFunction = new ScientificFunction(num, "cosh",inputSection);
+            scientificFunction = getScientificFunctionFromInput(inputText, "cosh");
             result = scientificFunction.cosH();
         } else if (inputText.startsWith("arcCoH")) {
-            String numericPart = inputText.substring(6);
-            double num = Double.parseDouble(numericPart);
-            scientificFunction = new ScientificFunction(num, "arcCosh",inputSection);
+            scientificFunction = getScientificFunctionFromInput(inputText, "arcCosh");
             result = scientificFunction.arcCosH();
         } 
            else if (inputText.startsWith("tah")) {
-            String numericPart = inputText.substring(3);
-            double num = Double.parseDouble(numericPart);
-            scientificFunction = new ScientificFunction(num, "tanh",inputSection);
+            scientificFunction = getScientificFunctionFromInput(inputText, "tanh");
             result = scientificFunction.tanH();
         } else if (inputText.startsWith("arcTaH")) {
-            String numericPart = inputText.substring(6);
-            double num = Double.parseDouble(numericPart);
-            scientificFunction = new ScientificFunction(num, "sinh",inputSection);
+            scientificFunction = getScientificFunctionFromInput(inputText, "arcTanH");
             result = scientificFunction.arcTanH();
         } 
          else if (inputText.startsWith("√")) {
@@ -282,4 +263,10 @@ class DigitsSection extends JPanel {
         return result;
     }
     
+    private ScientificFunction getScientificFunctionFromInput(String inputText, String functionName){
+        Integer strLen = functionName.length();
+        String numericPart = inputText.substring(strLen);
+        double num = Double.parseDouble(numericPart);
+        return new ScientificFunction(num, functionName, inputSection);
+    }
 }
