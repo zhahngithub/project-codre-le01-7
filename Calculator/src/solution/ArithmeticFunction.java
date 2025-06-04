@@ -7,13 +7,6 @@ import java.util.ArrayList;
  * Smell Code   : The Bloater - Large Class ✅
  * Reason       : Tanggung jawabnya terlalu banyak (nyimpen data, operasi hitungan, error handling, display result)
  * Solution     : Extract Class, misalnya CalculatorEngine untuk perhitungan, dan biarkan ArithmeticFunction hanya mengoordinasikan operasi. Ini mengurangi beban pada kelas.
- * 
- * Smell Code   : The Bloater - Primitive Obsession & ??Data Clumps??
- * Reason       : Operands & operations bisa dibuat menjadi 1 class saja sehingga keseluruhan yang dipanggil dalam class ini berbentuk array of object dibandingkan terpisah secara arraylist 
- * Solution     : Buat kelas seperti Operation yang memasangkan operand dengan operasinya, lalu gunakan daftar dari objek Operation.
- * 
- * vvv mungkin tapi ga yakin vvv
- * Divergent Change = kalau ada operasi baru dia harus ngubah method di class ini ataupun nambah method
  *  
  */
 

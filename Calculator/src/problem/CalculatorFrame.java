@@ -7,8 +7,7 @@ public class CalculatorFrame extends JFrame {
         super(name);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(width, height);
-        setLocationRelativeTo(null);
-        
+        setLocationRelativeTo(null);        
 
         // Create the sections
         InputSection inputSection = new InputSection();
