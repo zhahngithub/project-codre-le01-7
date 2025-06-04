@@ -37,6 +37,12 @@ import java.awt.*;
  * Solution     : Bungkus dalam class seperti `ScientificCommand` untuk menyederhanakan parameter.
  */
 
+/*
+ * Smell Code   : Dead Code ✅
+ * Reason       : Beberapa case (seperti "mread") tidak menjalankan logika aktual, hanya print ke console.
+ * Solution     : Implementasikan fungsionalitas sebenarnya atau hapus jika tidak dibutuhkan.
+ */
+
 public class ScientificSection extends JPanel {
 
     Font myFont = new Font("Arial", Font.PLAIN, 30);
