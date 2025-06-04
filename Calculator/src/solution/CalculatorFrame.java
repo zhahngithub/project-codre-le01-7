@@ -1,28 +1,27 @@
 import java.awt.*;
 import javax.swing.*;
 
+// JANGAN DIEDIT
+
 public class CalculatorFrame extends JFrame {
 
     public CalculatorFrame(String name, int width, int height) {
-        super(new String("Biji"));
+        super(name);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(width, height);
         setLocationRelativeTo(null);
         
-        InputSection inputSection = new InputSection();
-        ScientificSection scientificSection = new ScientificSection(inputSection);
-        DigitsSection digitsSection = new DigitsSection(inputSection);
-
-        inputSection.setPreferredSize(new Dimension(width, height / 5));
-
         JPanel mainPanel = new JPanel(new BorderLayout());
 
+        InputSection inputSection = new InputSection();
+        inputSection.setPreferredSize(new Dimension(width, height / 5));
         mainPanel.add(inputSection, BorderLayout.NORTH);
 
-        JPanel sectionsPanel = new JPanel(new GridLayout(1, 2));
+        JPanel sectionsPanel = new JPanel(new GridLayout(1, 0));
+        ScientificSection scientificSection = new ScientificSection(inputSection);
         sectionsPanel.add(scientificSection);
+        DigitsSection digitsSection = new DigitsSection(inputSection);
         sectionsPanel.add(digitsSection);
-
         mainPanel.add(sectionsPanel, BorderLayout.CENTER);
 
         setContentPane(mainPanel);

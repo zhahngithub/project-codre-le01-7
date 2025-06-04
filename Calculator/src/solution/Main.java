@@ -1,5 +1,7 @@
 import java.awt.Color;
 
+// JANGAN DIEDIT
+
 /*
  * Smell Code   : The Dispensable - Comments
  * Reason       : Terlalu banyak comments di setiap method pada berbagai class di project ini
