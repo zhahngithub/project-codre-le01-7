@@ -5,7 +5,7 @@
  */
 
 /*
- * Smell Code   : Primitive Obsession
+ * Smell Code   : Primitive Obsession ✅ (done in solution package)
  * Reason       : Menggunakan `double` dan `String` untuk representasi scientific number tanpa class khusus.
  * Solution     : Buat class `ScientificNumber` untuk membungkus nilai dan tanda, sehingga lebih fleksibel dan mudah diperluas.
  */
@@ -29,14 +29,12 @@
  */
 
 public abstract class ScientificAbstract{
-   protected double num;
-   protected String sign;
+   protected ScientificNumber scientificNumber;
    
-   public ScientificAbstract(double num,String sign){
-    this.num=num;
-    this.sign=sign;
+   public ScientificAbstract(ScientificNumber scientificNumber){
+    this.scientificNumber = scientificNumber;
    }
-   //The abstract for scientific calculations
+   
     abstract double square();
     abstract double cube();
     abstract double customPower(double num1, double num2);
