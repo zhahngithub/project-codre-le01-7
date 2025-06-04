@@ -1,10 +1,4 @@
 /*
- * Smell Code   : Large Class
- * Reason       : Mengimplementasi lebih dari 30 method, menunjukkan class terlalu gemuk.
- * Solution     : Ekstrak class menjadi beberapa turunan berdasarkan domain seperti PowerFunction, TrigonometryFunction, dsb.
- */
-
-/*
  * Smell Code   : Duplicate Code ✅
  * Reason       : Konversi derajat ke radian diulang berkali-kali di sin(), cos(), tan(), dsb.
  * Solution     : Buat method utilitas internal atau gunakan `degreeToRadian(num)` secara konsisten.
@@ -17,7 +11,7 @@
  */
 
 /*
- * Smell Code   : Primitive Obsession
+ * Smell Code   : Primitive Obsession ✅
  * Reason       : Masih memakai `double` dan `String` untuk data saintifik kompleks.
  * Solution     : Gunakan class khusus sebagai representasi nilai numerik.
  */

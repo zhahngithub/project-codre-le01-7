@@ -2,12 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 
 /*
- * Smell Code   : Large Class
- * Reason       : Memiliki terlalu banyak tanggung jawab (UI rendering, event handling, fungsi saintifik).
- * Solution     : Pisahkan UI setup, event handling, dan pemrosesan logika ke class terpisah seperti `ScientificButtonRenderer`, `ScientificEventHandler`.
- */
-
-/*
  * Smell Code   : Duplicate Code ✅
  * Reason       : Proses pembuatan dan styling tombol dilakukan berulang dalam loop.
  * Solution     : Ekstrak method `createStyledButton(String label)` untuk modularitas.
