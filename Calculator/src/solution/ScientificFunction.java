@@ -11,7 +11,7 @@
  */
 
 /*
- * Smell Code   : Dead Code
+ * Smell Code   : Dead Code ✅
  * Reason       : Method `doubleE()` dan `rand()` hanya return 0 tanpa makna fungsional.
  * Solution     : Hapus jika tidak diperlukan atau lempar `UnsupportedOperationException`.
  */
@@ -41,6 +41,26 @@ public class ScientificFunction extends ScientificAbstract {
         super(num, sign);
         this.inputSection=inputSection;
     }
+
+    public double execute(FunctionType type) {
+    switch (type) {
+        case M_PLUS: return mplus();
+        case M_MINUS: return mminus();
+        case SQUARE: return square();
+        case CUBE: return cube();
+        case SQROOT: return sqroot();
+        case CUBEROOT: return cubeRoot();
+        case FRACTION: return fraction();
+        case FACTORIAL: return factorial();
+        case PI: return Math.PI;
+        case POWER_TEN: return tenthPower();
+        case EXPONENTIAL_POWER: return exponentialPower();
+        case M_CLEAR: return mc();
+        case M_READ: return mread();
+        default:
+            throw new UnsupportedOperationException("Unknown function type: " + type);
+    }
+}
 
     // Method to calculate square of a number
     @Override
@@ -117,14 +137,11 @@ public class ScientificFunction extends ScientificAbstract {
     // Method to calculate factorial of a number
     @Override
     double factorial() {
-        if (num < 0) {
-            inputSection.setInputField("NaN");
-            throw new IllegalArgumentException("Factorial is not defined for negative numbers");
-        }
+        validateNonNegative(num);
         double result = 1;
         for (int i = 2; i <= num; i++) {
-            result *= i;
-        }
+        result *= i;
+    }
         return result;
     }
 
@@ -206,7 +223,7 @@ public class ScientificFunction extends ScientificAbstract {
     @Override
     double arcCosH() {
         double resultInRadians=degreeToRadian(num);
-        return inverse(resultInRadians, "atanh ");
+        return inverse(resultInRadians, "acosh");
     }
 
     // Method to return Euler's number (e)
@@ -218,7 +235,7 @@ public class ScientificFunction extends ScientificAbstract {
     // Method to return double of Euler's number (e)
     @Override
     double doubleE() {
-        return 0; // Not implemented
+        return 2 * Math.E;
     }
 
     // Method to convert degrees to radians
@@ -250,7 +267,7 @@ public class ScientificFunction extends ScientificAbstract {
     // Method to generate a random number
     @Override
     double rand() {
-        return 0; // Not implemented
+        return Math.random();
     }
 
     // Method to convert degrees to radians
@@ -270,5 +287,12 @@ public class ScientificFunction extends ScientificAbstract {
         }
         return result;
     }
+
+    private void validateNonNegative(double num) {
+    if (num < 0) {
+        inputSection.setInputField("NaN");
+        throw new IllegalArgumentException("Factorial is not defined for negative numbers");
+    }
+}
       
 }

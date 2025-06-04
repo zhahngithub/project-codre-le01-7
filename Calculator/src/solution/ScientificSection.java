@@ -14,7 +14,7 @@ import java.awt.*;
  */
 
 /*
- * Smell Code   : Primitive Obsession
+ * Smell Code   : Primitive Obsession ✅
  * Reason       : Penggunaan `String` sebagai representasi tipe fungsi (misalnya "mplus", "powerTen").
  * Solution     : Gunakan `enum` FunctionType untuk meningkatkan type safety dan readability.
  */
@@ -58,6 +58,7 @@ public class ScientificSection extends JPanel {
         }
         setLayout(new GridLayout(5, 5, 5, 5));
 
+
         String[] scientificButtonLabels = {
                 "(", ")", "mc", "m+", "m-",
                 "mr", "2nd", "x²", "x³", "X^y",
@@ -86,7 +87,7 @@ public class ScientificSection extends JPanel {
                         inputSection.resetMemory();
                         break;
                     case "m+":
-                        applyUnaryFunction("mplus");
+                        applyUnaryFunction(FunctionType.M_PLUS);
                         break;
                     case "m-":
                         double numberToRemove=Double.parseDouble(inputSection.getInputFieldText());
@@ -97,13 +98,13 @@ public class ScientificSection extends JPanel {
          
                         break;
                     case "x²":
-                        applyUnaryFunction("square");
+                        applyUnaryFunction(FunctionType.SQUARE);
                         break;
                     case "x³":
-                        applyUnaryFunction("cube");
+                        applyUnaryFunction(FunctionType.CUBE);
                         break;
                     case "√":
-                        applyUnaryFunction("sqroot");
+                        applyUnaryFunction(FunctionType.SQROOT);
                         break;
                     case "2nd":
                         showInverseFunctions=!showInverseFunctions;
@@ -113,10 +114,10 @@ public class ScientificSection extends JPanel {
                         }
                         break;
                     case "3√":
-                        applyUnaryFunction("cubeRoot");
+                        applyUnaryFunction(FunctionType.CUBEROOT);
                         break;
                     case "1/x":
-                        applyUnaryFunction("fraction");
+                        applyUnaryFunction(FunctionType.FRACTION);
                         break;
                     case "e":
                         double result = 2.718281828459045;
@@ -129,7 +130,7 @@ public class ScientificSection extends JPanel {
                         inputSection.updateInputField(buttonText);
                         break;
                     case "x!":
-                        applyUnaryFunction("factorial");
+                        applyUnaryFunction(FunctionType.FACTORIAL);
                         break;
                     case "sin":
                     case "cos":
@@ -166,10 +167,10 @@ public class ScientificSection extends JPanel {
                         break;
                     // Add cases for other scientific functions here
                     case "10^x":
-                        applyUnaryFunction("powerTen");
+                        applyUnaryFunction(FunctionType.POWER_TEN);
                         break;
                     case "e^x":
-                        applyUnaryFunction("exponentialPower");
+                        applyUnaryFunction(FunctionType.EXPONENTIAL_POWER);
                         break;
                     case "EE":
                         inputSection.updateInputField("E");
@@ -182,62 +183,14 @@ public class ScientificSection extends JPanel {
         }
     }
 
-    private void applyUnaryFunction(String functionName) {
+    private void applyUnaryFunction(FunctionType type) {
         String inputText = inputSection.getInputFieldText();
         if (inputText.isEmpty() || !inputText.matches("[-+]?\\d*(\\.\\d+)?")) {
             return;
         }
         double num = Double.parseDouble(inputSection.getInputFieldText());
-        ScientificFunction scientificFunction = new ScientificFunction(num, functionName, inputSection);
-        double result = 0;
-        switch (functionName) {
-            case "mc":
-                result=scientificFunction.mc();
-                System.out.println(result);
-                break;
-            case "mplus":
-                result=scientificFunction.mplus();
-                break;
-            case "mminus":
-                result=scientificFunction.mminus();
-                break;
-            case "square":
-                result = scientificFunction.square();
-                break;
-            case "cube":
-                result = scientificFunction.cube();
-                break;
-            case "sqroot":
-                result = scientificFunction.sqroot();
-                break;
-            case "cubeRoot":
-                result = scientificFunction.cubeRoot();
-                break;
-            case "fraction":
-                result = scientificFunction.fraction();
-                break;
-            case "exponential":
-                result = scientificFunction.exponential();
-                break;
-            case "factorial":
-                result = scientificFunction.factorial();
-                break;
-            case "pi":
-                result = Math.PI;
-                break;
-            case "powerTen":
-                result = scientificFunction.tenthPower();
-                break;
-            case "exponentialPower":
-                result = scientificFunction.exponentialPower();
-                break;
-            case "mread":
-                result = scientificFunction.mread();
-                System.out.print("You clicked the mr button");
-                break;
-            default:
-                break;
-        }
+        ScientificFunction scientificFunction = new ScientificFunction(num, type.name(), inputSection);
+        double result = scientificFunction.execute(type);
         inputSection.setInputField(String.valueOf(result));
     }
 
