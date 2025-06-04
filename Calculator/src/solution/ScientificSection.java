@@ -8,7 +8,7 @@ import java.awt.*;
  */
 
 /*
- * Smell Code   : Duplicate Code
+ * Smell Code   : Duplicate Code ✅
  * Reason       : Proses pembuatan dan styling tombol dilakukan berulang dalam loop.
  * Solution     : Ekstrak method `createStyledButton(String label)` untuk modularitas.
  */
@@ -72,12 +72,7 @@ public class ScientificSection extends JPanel {
             "arcSiH","arcCoH","arcTaH"};
 
         for (String label : scientificButtonLabels) {
-            JButton button = new JButton(label);
-
-            button.setFont(myFont);
-            button.setBackground(Color.decode("#454442"));
-            button.setForeground(Color.decode("#FFFFFF"));
-            button.addActionListener(e -> {
+            JButton button = createStyledButton(label);
                 String buttonText = button.getText();
                 switch (buttonText) {
                     case "(":
@@ -244,4 +239,13 @@ public class ScientificSection extends JPanel {
         }
         inputSection.setInputField(String.valueOf(result));
     }
+
+    private JButton createStyledButton(String label) {
+        JButton button = new JButton(label);
+        button.setFont(myFont);
+        button.setBackground(Color.decode("#454442"));
+        button.setForeground(Color.decode("#FFFFFF"));
+        return button;
+    }
+
 }
