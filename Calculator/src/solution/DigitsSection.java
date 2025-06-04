@@ -1,6 +1,3 @@
-import java.awt.*;
-import javax.swing.*;
-
 import java.util.ArrayList;
 import java.util.regex.*;
 
@@ -9,7 +6,7 @@ import java.util.regex.*;
  * Reason       : Logika di dalam actionPerformed (bagian button.addActionListener) terlalu panjang dan mencampur banyak hal sekaligus: mulai dari kontrol UI, parsing ekspresi, hingga evaluasi ilmiah dan aritmatika.
  * Solution     : Extract method seperti: handleClear(), handleDelete(), handleEquals(), handlePercentage(), dan handleSignToggle()
  * 
- * Smell Code   : The Bloater - Large Class
+ * Smell Code   : The Bloater - Large Class ✅
  * Reason       : Kelas DigitsSection bertanggung jawab atas banyak hal: membuat tombol, mengatur tata letak UI, mengelola input, dan bahkan melakukan perhitungan.
  * Solution     : Pisahkan logika perhitungan ke kelas terpisah, seperti CalculatorLogic, sehingga DigitsSection hanya fokus pada UI dan interaksi pengguna.
  * 
@@ -27,7 +24,7 @@ import java.util.regex.*;
  */
 
 
-class DigitsSection extends JPanel {
+class DigitsSection {
     ArithmeticFunction arithmeticFunction;
     ScientificFunction scientificFunction;
     InputSection inputSection;
