@@ -11,7 +11,7 @@
  */
 
 /*
- * Smell Code   : Dead Code
+ * Smell Code   : Dead Code ✅
  * Reason       : Method `doubleE()` dan `rand()` hanya return 0 tanpa makna fungsional.
  * Solution     : Hapus jika tidak diperlukan atau lempar `UnsupportedOperationException`.
  */
@@ -215,12 +215,6 @@ public class ScientificFunction extends ScientificAbstract {
         return 2.718281828459045;
     }
 
-    // Method to return double of Euler's number (e)
-    @Override
-    double doubleE() {
-        return 0; // Not implemented
-    }
-
     // Method to convert degrees to radians
     @Override
     double rad() {
@@ -245,12 +239,6 @@ public class ScientificFunction extends ScientificAbstract {
     @Override
     double mminus(){ 
         return inputSection.subtractFromMemory(scientificNumber.getNum());
-    }
-
-    // Method to generate a random number
-    @Override
-    double rand() {
-        return 0; // Not implemented
     }
 
     // Method to convert degrees to radians

@@ -55,12 +55,10 @@ public abstract class ScientificAbstract{
     abstract double arcCos();
     abstract double arcTan();
     abstract double singleE();
-    abstract double doubleE();
     abstract double rad();
     abstract double sinH();
     abstract double cosH();
     abstract double tanH();
-    abstract double rand();
     abstract double arcSinH();
     abstract double arcCosH();
     abstract double arcTanH();
