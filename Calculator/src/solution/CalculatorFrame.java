@@ -26,6 +26,8 @@ public class CalculatorFrame extends JFrame {
         mainPanel.add(sectionsPanel, BorderLayout.CENTER);
 
         setContentPane(mainPanel);
+        setBackground(Color.decode("#32322F"));
+        setVisible(true);
     }
 
 }

@@ -34,6 +34,12 @@
  * Solution     : Gunakan class `ExponentOperation` atau sejenisnya.
  */
 
+ /*
+ * Smell Code   : Shotgun Srugery
+ * Reason       : Ketika ada penambahan operasi scientific yang baru, maka diperlukan perubahan pada class yang tidak seharusnya mengurus logika conditional. (DigitsSection harus membuat if-else baru sesuai operasi baru tersebut)
+ * Solution     : Gunakan Map<String, Function<ScientificFunction, Double>> untuk menyimpan fungsi secara dynamic.
+ */
+
 public class ScientificFunction extends ScientificAbstract {
     InputSection inputSection;
     // Constructor

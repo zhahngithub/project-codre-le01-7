@@ -1,23 +1,23 @@
 /*
- * Smell Code   : Primitive Obsession ✅ (done in solution package)
+ * Smell Code   : The Bloaters - Primitive Obsession ✅ (done in solution package)
  * Reason       : Menggunakan `double` dan `String` untuk representasi scientific number tanpa class khusus.
  * Solution     : Buat class `ScientificNumber` untuk membungkus nilai dan tanda, sehingga lebih fleksibel dan mudah diperluas.
  */
 
 /*
- * Smell Code   : Long Parameter List ✅
+ * Smell Code   : The Bloaters - Long Parameter List ✅
  * Reason       : Konstruktor menggunakan dua parameter primitif berpasangan yang bisa dikelompokkan.
  * Solution     : Gunakan object wrapper seperti `ScientificValue` untuk merapikan parameter.
  */
 
 /*
- * Smell Code   : Data Clump ✅
+ * Smell Code   : The Bloaters - Data Clump ✅
  * Reason       : Kombinasi `double num` dan `String sign` selalu digunakan bersama.
  * Solution     : Bungkus keduanya dalam satu class seperti `ScientificValue`.
  */
 
 /*
- * Smell Code   : Long Parameter List (in constructor) ✅
+ * Smell Code   : The Bloaters - Long Parameter List (in constructor) ✅
  * Reason       : Konstruktor menerima lebih dari satu parameter primitif yang berhubungan.
  * Solution     : Gunakan object wrapper seperti `ScientificValue` untuk menyederhanakan konstruktor.
  */
